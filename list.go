@@ -1,5 +1,6 @@
 package list
 
+// Create a new List
 func NewList() List {
 	return List{}
 }
@@ -8,24 +9,40 @@ type List struct {
 	data []any
 }
 
+// Returns all elements of the List
 func (l *List) All() []any {
 	return l.data
 }
 
-func (l *List) Update(list []any) {
+// Updates the list to new given list,
+// Removes all the previous data
+func (l *List) UpdateList(list []any) {
 	l.data = list
 }
 
+// Updates the value of specified index,
+func (l *List) UpdateOn(index int, value any) {
+	l.data[index] = value
+}
+
+// Add values to the list
+// You can pass multiple values as argument
 func (l *List) Add(values ...any) {
 	l.data = append(l.data, values...)
 }
 
+// Removes Specified Index from the List,
+// You can pass multiple arguments
 func (l *List) RemoveByIndex(indexList ...int) {
-	for _, v := range indexList {
-		l.data = append(l.data[:v], l.data[v+1:]...)
+	for _, i := range indexList {
+		if i >= 0 {
+			l.data = append(l.data[:i], l.data[i+1:]...)
+		}
 	}
 }
 
+// Removes Specified Values from the List,
+// You can pass multiple arguments
 func (l *List) RemoveByValue(valueList ...any) {
 	for _, value := range valueList {
 		index := -1
@@ -41,6 +58,7 @@ func (l *List) RemoveByValue(valueList ...any) {
 	}
 }
 
+// Returns index of given value
 func (l *List) IndexOf(value any) int {
 	for i, v := range l.data {
 		if value == v {
@@ -50,6 +68,7 @@ func (l *List) IndexOf(value any) int {
 	return -1
 }
 
+// Returns value of given index,
 // Returns nil if value do not exists
 func (l *List) OnIndex(index int) any {
 	for i, v := range l.data {
@@ -60,6 +79,7 @@ func (l *List) OnIndex(index int) any {
 	return nil
 }
 
+// Returns true if List contains specified value
 func (l *List) Contains(value any) bool {
 	for _, v := range l.data {
 		if value == v {
@@ -69,37 +89,13 @@ func (l *List) Contains(value any) bool {
 	return false
 }
 
+// Return lenght of the List
 func (l *List) Length() int {
 	return len(l.data)
 }
 
+// Deletes all the data from List
 func (l *List) Clear() {
 	var empty []any
 	l.data = empty
-}
-
-func BinarySearch(arr []int, x int, low int, hight int) int {
-	if hight >= low {
-		mid := low + (hight-low)/2
-
-		// If the element is present at the middle
-		// itself
-		if arr[mid] == x {
-			return mid
-		}
-
-		// If element is smaller than mid, then
-		// it can only be present in left subarray
-		if arr[mid] > x {
-			return BinarySearch(arr, x, low, mid-1)
-		}
-
-		// Else the element can only be present
-		// in right subarray
-		return BinarySearch(arr, x, mid+1, hight)
-	}
-
-	// We reach here when element is not
-	// present in array
-	return -1
 }
