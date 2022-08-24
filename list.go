@@ -5,10 +5,18 @@ func NewList() List {
 }
 
 type List struct {
-	data []interface{}
+	data []any
 }
 
-func (l *List) Add(values ...interface{}) {
+func (l *List) All() []any {
+	return l.data
+}
+
+func (l *List) Update(list []any) {
+	l.data = list
+}
+
+func (l *List) Add(values ...any) {
 	l.data = append(l.data, values...)
 }
 
@@ -18,7 +26,7 @@ func (l *List) RemoveByIndex(indexList ...int) {
 	}
 }
 
-func (l *List) RemoveByValue(valueList ...interface{}) {
+func (l *List) RemoveByValue(valueList ...any) {
 	for _, value := range valueList {
 		index := -1
 		for i, v := range l.data {
@@ -33,7 +41,7 @@ func (l *List) RemoveByValue(valueList ...interface{}) {
 	}
 }
 
-func (l *List) IndexOf(value interface{}) int {
+func (l *List) IndexOf(value any) int {
 	for i, v := range l.data {
 		if value == v {
 			return i
@@ -43,7 +51,7 @@ func (l *List) IndexOf(value interface{}) int {
 }
 
 // Returns nil if value do not exists
-func (l *List) OnIndex(index int) interface{} {
+func (l *List) OnIndex(index int) any {
 	for i, v := range l.data {
 		if i == index {
 			return v
@@ -52,7 +60,7 @@ func (l *List) OnIndex(index int) interface{} {
 	return nil
 }
 
-func (l *List) Contains(value interface{}) bool {
+func (l *List) Contains(value any) bool {
 	for _, v := range l.data {
 		if value == v {
 			return true
@@ -66,7 +74,7 @@ func (l *List) Length() int {
 }
 
 func (l *List) Clear() {
-	var empty []interface{}
+	var empty []any
 	l.data = empty
 }
 
