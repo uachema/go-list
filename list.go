@@ -99,3 +99,7 @@ func (l *List) Clear() {
 	var empty []any
 	l.data = empty
 }
+func (l *List) Clr() {
+	var empty []any
+	l.data = empty
+}
